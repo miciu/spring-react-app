@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(EmployeeController.class)
 public class EmployeeControllerTest {
 
-  @MockBean
+  @MockBean(name = "employeeServiceImpl")
   private EmployeeService employeeService;
 
   @Autowired
@@ -32,7 +32,7 @@ public class EmployeeControllerTest {
   @Test
   void should_return_list_of_employees() throws Exception {
     Employee givenEmployee = new Employee("Jan", "Kowalski", 45);
-    when(employeeService.readEmployeesFromJson()).thenReturn(Arrays.asList(givenEmployee));
+    when(employeeService.readEmployees()).thenReturn(Arrays.asList(givenEmployee));
 
     mockMvc.perform(get("/employee")).andExpect(status().isOk())
         .andExpect(jsonPath("$").isArray())
