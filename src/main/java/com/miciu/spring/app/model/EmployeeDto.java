@@ -11,9 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @ToString
-public class Employee implements Serializable {
-  
-  private Integer id;
+public class EmployeeDto implements Serializable {
   @NotBlank(message = "firstName is mandatory")
   private String firstName;
   @NotBlank(message = "lastName is mandatory")
@@ -21,7 +19,7 @@ public class Employee implements Serializable {
   @Min(value = 18, message = "the minimum age is 18 years")
   private int age;
 
-  public Employee(String firstName, String lastName, int age) {
+  public EmployeeDto(String firstName, String lastName, int age) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;

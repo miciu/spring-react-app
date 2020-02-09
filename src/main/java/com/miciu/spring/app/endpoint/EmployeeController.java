@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.miciu.spring.app.model.Employee;
+import com.miciu.spring.app.model.EmployeeDto;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -32,9 +32,9 @@ public class EmployeeController {
   }
 
   @RequestMapping(value = "employee", method = RequestMethod.GET)
-  public List<Employee> getEmployees() {
+  public List<EmployeeDto> getEmployees() {
     try {
-      List<Employee> employees = employeeService.readEmployees();
+      List<EmployeeDto> employees = employeeService.readEmployees();
       return employees;
 
     } catch (Exception e) {
@@ -43,7 +43,7 @@ public class EmployeeController {
   }
 
   @RequestMapping(value = "employee", method = RequestMethod.POST)
-  public ResponseEntity addEmployee(@RequestBody @Valid Employee employee) {
+  public ResponseEntity addEmployee(@RequestBody @Valid EmployeeDto employee) {
     employeeService.addEmployee(employee);
     return ResponseEntity.ok().build();
   }

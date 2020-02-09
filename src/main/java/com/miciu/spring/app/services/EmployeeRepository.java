@@ -1,10 +1,8 @@
 package com.miciu.spring.app.services;
 
-import com.miciu.spring.app.model.Employee;
+import com.miciu.spring.app.entity.EmployeeEntity;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
-public interface EmployeeRepository {
-
-  List<Employee> findOlderThan(int minAge);
+public interface EmployeeRepository extends CrudRepository<EmployeeEntity, Integer> {
+  
 }

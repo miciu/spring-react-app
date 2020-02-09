@@ -1,6 +1,6 @@
 package com.miciu.spring.app.endpoint;
 
-import com.miciu.spring.app.model.Employee;
+import com.miciu.spring.app.model.EmployeeDto;
 import com.miciu.spring.app.services.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @WebMvcTest(EmployeeController.class)
-public class EmployeeControllerTest {
+public class EmployeeDtoControllerTest {
 
   @MockBean(name = "employeeServiceImpl")
   private EmployeeService employeeService;
@@ -34,7 +34,7 @@ public class EmployeeControllerTest {
 
   @Test
   void should_return_list_of_employees() throws Exception {
-    Employee givenEmployee = new Employee("Jan", "Kowalski", 45);
+    EmployeeDto givenEmployee = new EmployeeDto("Jan", "Kowalski", 45);
     when(employeeService.readEmployees()).thenReturn(Arrays.asList(givenEmployee));
 
     mockMvc.perform(get("/employee")).andExpect(status().isOk())
@@ -51,7 +51,7 @@ public class EmployeeControllerTest {
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
     
-    verify(employeeService).addEmployee(any(Employee.class));
+    verify(employeeService).addEmployee(any(EmployeeDto.class));
   }
 
   @Test
@@ -64,6 +64,6 @@ public class EmployeeControllerTest {
         .andExpect(jsonPath("$.lastName", is("lastName is mandatory")))
         .andExpect(jsonPath("$.age", is("the minimum age is 18 years")));
 
-    verify(employeeService, never()).addEmployee(any(Employee.class));
+    verify(employeeService, never()).addEmployee(any(EmployeeDto.class));
   }
 }
