@@ -13,6 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,6 +50,8 @@ public class EmployeeControllerTest {
         .content("{\"firstName\": \"Jan\", \"lastName\": \"Testowy\", \"age\": \"54\"}")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
+    
+    verify(employeeService).addEmployee(any(Employee.class));
   }
 
   @Test
@@ -58,5 +63,7 @@ public class EmployeeControllerTest {
         .andExpect(jsonPath("$.firstName", is("firstName is mandatory")))
         .andExpect(jsonPath("$.lastName", is("lastName is mandatory")))
         .andExpect(jsonPath("$.age", is("the minimum age is 18 years")));
+
+    verify(employeeService, never()).addEmployee(any(Employee.class));
   }
 }

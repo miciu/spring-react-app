@@ -4,9 +4,7 @@ import com.miciu.spring.app.model.Employee;
 
 import java.util.List;
 
-public interface EmployeeService {
+public interface EmployeeRepository {
 
-  List<Employee> readEmployees();
-  
-  void addEmployee(Employee employee);
+  List<Employee> findOlderThan(int minAge);
 }

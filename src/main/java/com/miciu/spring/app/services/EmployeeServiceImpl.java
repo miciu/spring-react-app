@@ -1,39 +1,29 @@
 package com.miciu.spring.app.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miciu.spring.app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 
-import java.io.IOException;
 import java.util.List;
+import static java.util.stream.Collectors.*;
+import static java.util.stream.StreamSupport.stream;
 
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Paths.get;
+public class EmployeeServiceImpl implements EmployeeService {
 
-public class EmployeeServiceImpl implements EmployeeService{
-
-  @Value("classpath:/data/employees.json")
-  private Resource resourceFile;
-  
-  private final ObjectMapper mapper;
+  private final EmployeeRepository repository;
 
   @Autowired
-  public EmployeeServiceImpl(ObjectMapper mapper) {
-    this.mapper = mapper;
+  public EmployeeServiceImpl(EmployeeRepository repository) {
+    this.repository = repository;
   }
 
-
-  public List<Employee> readEmployees() throws IOException {
-    String json = loadResource();
-    List<Employee> employees = mapper.readValue(json, List.class);
-
-    return employees;
+  @Override
+  public List<Employee> readEmployees() {
+    return stream(repository.findOlderThan(40).spliterator(), false)
+        .collect(toList());
   }
 
-  private String loadResource() throws IOException {
-    return new String(readAllBytes(get(resourceFile.getURI())));
+  @Override
+  public void addEmployee(Employee employee) {
+    repository.save(employee);
   }
-
 }

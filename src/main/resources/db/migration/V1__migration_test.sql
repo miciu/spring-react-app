@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS test_entity (
+	id BIGINT PRIMARY KEY
+);
+DROP TABLE IF EXISTS test_entity;

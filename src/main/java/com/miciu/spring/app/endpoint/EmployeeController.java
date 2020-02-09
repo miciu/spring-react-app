@@ -44,7 +44,7 @@ public class EmployeeController {
 
   @RequestMapping(value = "employee", method = RequestMethod.POST)
   public ResponseEntity addEmployee(@RequestBody @Valid Employee employee) {
-    log.info("Successfully added: {}", employee);
+    employeeService.addEmployee(employee);
     return ResponseEntity.ok().build();
   }
 
