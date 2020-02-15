@@ -13,6 +13,7 @@ class EmployeeList extends React.Component {
           <th>First Name</th>
           <th>Last Name</th>
           <th>Age</th>
+          <th>Sector</th>
         </tr>
         {employees}
         </tbody>

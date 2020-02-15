@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.miciu.spring.app.model.Sector.*;
+
 @Slf4j
 public class DefaultEmployeeService implements EmployeeService {
   @Value("${employee.first.name}")
@@ -18,7 +20,7 @@ public class DefaultEmployeeService implements EmployeeService {
 
   @Override
   public List<EmployeeDto> readEmployees() {
-    EmployeeDto employee = new EmployeeDto(firstName, lastName, age);
+    EmployeeDto employee = new EmployeeDto(firstName, lastName, age, HEALTH);
 
     return Arrays.asList(employee);
   }
