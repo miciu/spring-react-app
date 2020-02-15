@@ -18,10 +18,12 @@ public class EmployeeDto implements Serializable {
   private String lastName;
   @Min(value = 18, message = "the minimum age is 18 years")
   private int age;
+  private Sector sector;
 
-  public EmployeeDto(String firstName, String lastName, int age) {
+  public EmployeeDto(String firstName, String lastName, int age, Sector sector) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
+    this.sector = sector;
   }
 }

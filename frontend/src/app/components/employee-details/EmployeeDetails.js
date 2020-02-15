@@ -7,6 +7,7 @@ class EmployeeDetails extends React.Component {
         <td>{this.props.employee.firstName}</td>
         <td>{this.props.employee.lastName}</td>
         <td>{this.props.employee.age}</td>
+        <td>{this.props.employee.sector}</td>
       </tr>
     )
   }

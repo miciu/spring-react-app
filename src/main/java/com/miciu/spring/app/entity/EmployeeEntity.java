@@ -1,10 +1,13 @@
 package com.miciu.spring.app.entity;
 
+import com.miciu.spring.app.model.Profession;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,10 +26,13 @@ public class EmployeeEntity implements Serializable {
   private String firstName;
   private String lastName;
   private int birthYear;
+  @Enumerated(EnumType.STRING)
+  private Profession profession;
 
-  public EmployeeEntity(String firstName, String lastName, int birthYear) {
+  public EmployeeEntity(String firstName, String lastName, int birthYear, Profession profession) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.birthYear = birthYear;
+    this.profession = profession;
   }
 }

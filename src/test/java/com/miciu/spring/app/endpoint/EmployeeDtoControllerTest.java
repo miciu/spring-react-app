@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 
+import static com.miciu.spring.app.model.Sector.*;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -34,14 +35,15 @@ public class EmployeeDtoControllerTest {
 
   @Test
   void should_return_list_of_employees() throws Exception {
-    EmployeeDto givenEmployee = new EmployeeDto("Jan", "Kowalski", 45);
+    EmployeeDto givenEmployee = new EmployeeDto("Jan", "Kowalski", 45, HEALTH);
     when(employeeService.readEmployees()).thenReturn(Arrays.asList(givenEmployee));
 
     mockMvc.perform(get("/employee")).andExpect(status().isOk())
         .andExpect(jsonPath("$").isArray())
         .andExpect(jsonPath("$[0].firstName", is("Jan")))
         .andExpect(jsonPath("$[0].lastName", is("Kowalski")))
-        .andExpect(jsonPath("$[0].age", is(45)));
+        .andExpect(jsonPath("$[0].age", is(45)))
+        .andExpect(jsonPath("$[0].sector", is("HEALTH")));
   }
 
   @Test

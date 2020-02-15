@@ -8,6 +8,8 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.miciu.spring.app.model.Profession.BANKER;
+import static com.miciu.spring.app.model.Sector.FINANCE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmployeeMapperTest {
@@ -23,22 +25,23 @@ public class EmployeeMapperTest {
   @Test
   public void should_map_employee_entity_to_employee_dto() {
     //given
-    EmployeeEntity givenEmployeeEntity = new EmployeeEntity("Jan", "Kowalski", 1978);
-
+    EmployeeEntity givenEmployeeEntity = new EmployeeEntity("Jan", "Kowalski", 1978, BANKER);
+    
     //when
     EmployeeDto result = mapper.map(givenEmployeeEntity);
-
+        
     //then
     assertThat(result.getFirstName()).isEqualTo(givenEmployeeEntity.getFirstName());
     assertThat(result.getLastName()).isEqualTo(givenEmployeeEntity.getLastName());
     assertThat(result.getAge()).isEqualTo(42);
+    assertThat(result.getSector()).isEqualTo(FINANCE);
 
   }
 
   @Test
   public void should_map_employee_dto_to_employee_entity() {
     //given
-    EmployeeDto giEmployeeDto = new EmployeeDto("Jan", "Kowalski", 42);
+    EmployeeDto giEmployeeDto = new EmployeeDto("Jan", "Kowalski", 42, FINANCE);
 
     //when
     EmployeeEntity result = mapper.map(giEmployeeDto);
@@ -47,8 +50,10 @@ public class EmployeeMapperTest {
     assertThat(result.getFirstName()).isEqualTo(giEmployeeDto.getFirstName());
     assertThat(result.getLastName()).isEqualTo(giEmployeeDto.getLastName());
     assertThat(result.getBirthYear()).isEqualTo(1978);
+    assertThat(result.getProfession()).isEqualTo(BANKER);
 
   }
+
 
   private MapperFacade buildMapper() {
     MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
