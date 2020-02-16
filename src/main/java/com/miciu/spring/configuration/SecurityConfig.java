@@ -5,6 +5,7 @@ import com.miciu.spring.app.filters.CsrfValidationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -48,5 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     frb.setFilter(new CsrfValidationFilter().setCookiePath("/"));
     frb.addUrlPatterns(ENDPOINT_PATH + FILTER_ALL);
     return frb;
+  }
+
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
   }
 }
