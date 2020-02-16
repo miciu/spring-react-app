@@ -1,6 +1,7 @@
 package com.miciu.spring.app.endpoint;
 
 import com.miciu.spring.app.model.EmployeeDto;
+import com.miciu.spring.app.services.EmployeeClientService;
 import com.miciu.spring.app.services.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class EmployeeControllerTest {
 
   @MockBean(name = "employeeServiceImpl")
   private EmployeeService employeeService;
+  @MockBean
+  private EmployeeClientService employeeClientService;
 
   @Autowired
   private MockMvc mockMvc;
@@ -39,6 +42,7 @@ public class EmployeeControllerTest {
   void should_return_list_of_employees() throws Exception {
     EmployeeDto givenEmployee = new EmployeeDto("Jan", "Kowalski", 45, HEALTH);
     when(employeeService.readEmployees()).thenReturn(Arrays.asList(givenEmployee));
+    when(employeeClientService.readEmployees()).thenReturn(Arrays.asList(givenEmployee));
 
     mockMvc.perform(get("/employee")).andExpect(status().isOk())
         .andExpect(jsonPath("$").isArray())

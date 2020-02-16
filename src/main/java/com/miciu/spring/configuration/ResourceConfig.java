@@ -16,12 +16,12 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    http.antMatcher("/api/**/*").authorizeRequests()
-        //TODO secure path: /api
-        .antMatchers(GET, "/api/**/*").permitAll()
-        .antMatchers(POST, "/api/**/*").permitAll()
-        .antMatchers(PUT, "/api/**/*").permitAll()
-        .anyRequest()
-        .authenticated();
+    http
+        .antMatcher("/api/**/*")
+        .authorizeRequests()
+        .antMatchers(GET, "/api/**/*").access("#oauth2.hasScope('read')")
+        .antMatchers(POST, "/api/**/*").access("#oauth2.hasScope('write')")
+        .antMatchers(PUT, "/api/**/*").access("#oauth2.hasScope('write')")
+        .anyRequest().authenticated();
   }
 }

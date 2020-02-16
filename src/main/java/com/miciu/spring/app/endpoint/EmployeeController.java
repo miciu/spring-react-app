@@ -1,5 +1,6 @@
 package com.miciu.spring.app.endpoint;
 
+import com.miciu.spring.app.services.EmployeeClientService;
 import com.miciu.spring.app.services.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,19 @@ import java.util.Map;
 @RestController
 public class EmployeeController {
   private final EmployeeService employeeService;
+  private final EmployeeClientService employeeClientService;
 
   @Autowired
-  public EmployeeController(EmployeeService employeeService) {
+  public EmployeeController(EmployeeService employeeService,
+                            EmployeeClientService employeeClientService) {
     this.employeeService = employeeService;
+    this.employeeClientService = employeeClientService;
   }
 
   @RequestMapping(value = "employee", method = RequestMethod.GET)
   public List<EmployeeDto> getEmployees() {
     try {
-      List<EmployeeDto> employees = employeeService.readEmployees();
+      List<EmployeeDto> employees = employeeClientService.readEmployees();
       return employees;
 
     } catch (Exception e) {
