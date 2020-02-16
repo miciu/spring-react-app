@@ -10,6 +10,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 public class CurrentUserResolver implements HandlerMethodArgumentResolver {
   
@@ -32,9 +33,8 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver {
       return null;
     }
     
-    //TODO create and return CurrentUser object 
-    //use principal and authentication to create current user
-    // map authentication.getAuthorities() to coma separated string - use streams and joining(", ")
-    return null;
+    String roles = authentication.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.joining(", "));
+    
+    return new CurrentUser(principal.getName(), roles);    
   }
 }

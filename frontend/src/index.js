@@ -4,6 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
+import axios from 'axios';
+
+//TODO uncomment to use xsrf
+//axios.defaults.xsrfHeaderName = 'X-XSRF-SPRING-REACT-APP-TOKEN';
+//axios.defaults.xsrfCookieName = 'XSRF-SPRING-REACT-APP-TOKEN';
 
 ReactDOM.render(< App/>, document.getElementById('spring-react-app'));
 
